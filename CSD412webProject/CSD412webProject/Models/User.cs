@@ -1,27 +1,35 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace CSD412webProject.Models
 {
     public class User
     {
-
-        public int Id { get; set; }
+        private static int IdCounter = 0;
+        [Key] public int Id { get; }
+        
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth => DateOfBirth.Date;
-        public string Role { get; set; }
+        public Enum Role { get; set; }
+
 
         public User()
         {
+            this.Id = IdCounter++;
             this.Name = "Default";
             this.LastName = "Default";
-            this.Email = "Default";
-            this.Role = "Default";
+            this.Email = "default@email.com";
+
         }
+
+
+
     }
 }
