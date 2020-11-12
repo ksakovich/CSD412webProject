@@ -9,14 +9,16 @@ namespace CSD412webProject.Models
     public class Movie
     {
         [Key] public int Id { get; }
+        public int ListId { get; set; }
         public string Title { get; }
         public int ReleaseYear { get; }
-        public Boolean Adult { get; set; }
+        public bool Adult { get; set; }
         public string Description { get; set; }
         public string PosterPath { get; set; }
         public string BackDropPath { get; set; }
         public float Rating { get; set; }
         public string VideoLink { get; set; }
+        public string Director { get; set; }
         public List<int> GenreIds { get; }
         public List<int> ActorsIds { get; }
 
@@ -59,6 +61,7 @@ namespace CSD412webProject.Models
             BackDropPath = backdrop;
             Rating = rating;
             VideoLink = link;
+            Director = null;
             GenreIds = new List<int>();
             ActorsIds = new List<int>();
         }
