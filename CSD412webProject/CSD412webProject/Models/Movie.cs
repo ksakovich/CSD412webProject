@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace CSD412webProject.Models
 {
     public class Movie
     {
-        public int Id { get; }
+        [Key] public int Id { get; }
         public string Title { get; }
         public int ReleaseYear { get; }
         public Boolean Adult { get; set; }
@@ -29,6 +30,10 @@ namespace CSD412webProject.Models
             float rating,
             string link)
         {
+            if(id <= 0)
+            {
+                throw new Exception("ERROR: Illegal ID");
+            }
             Id = id;
             Title = title;
             if(year < 1888 || year > DateTime.Now.Year)
