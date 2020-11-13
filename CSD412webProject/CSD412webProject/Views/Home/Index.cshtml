@@ -3,6 +3,42 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 text-danger">Cinematoria</h1>
+    <h2><i class="fas fa-theater-masks fa-7x mb-2"></i></h2>
+    <!-- VIDEO PLAY -->
+    <section id="video-play">
+        <div class="dark-overlay">
+            <div class="row h-100">
+                <div class="col">
+                    <div class="container p-5 h-100">
+                        <a id=" = "play-button" href="#" class="video"
+                           data-video="https://www.youtube.com/embed/9XaS93WMRQQ"
+                           data-toggle="modal" data-target="#videoModal">
+                            <i class="fas fa-play fa-5x"></i>
+                            <style>
+                                a {color: #db3553;}
+                                a:hover { color:#0cc431;}
+                            </style>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO MODAL -->
+    <div class="modal fade" id="videoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <iframe src="" frameborder="0" height="350"
+                            width="100%" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class=" p-5"> Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
