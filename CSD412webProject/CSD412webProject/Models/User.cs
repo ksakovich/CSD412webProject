@@ -18,8 +18,8 @@ namespace CSD412webProject.Models
             Customer,
         };
 
-        private static int IdCounter = 0;
-        [Key] public int Id { get; }
+        private static int _idCounter = 0;
+        [Key] public int Id { get; set; }
         
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -30,13 +30,23 @@ namespace CSD412webProject.Models
         public List<int> MovieListsIds { get; }
         public List<int> FriendsIds { get; }
 
-
+        public User()
+        {
+            this.Id = _idCounter++;
+            this.Name = "Default";
+            this.LastName = "Default";
+            this.Username = "Default";
+            this.Email = "Default@email.com";
+            this.UserRole = Roles.Customer;
+            this.MovieListsIds = new List<int>();
+            this.FriendsIds = new List<int>();
+        }
         public User(string name, string lastname, string username,string email, bool admin)
         {
-            this.Id = IdCounter++;
+            this.Id = _idCounter++;
             this.Name = name;
             this.LastName = lastname;
-            Username = username;
+            this.Username = username;
             this.Email = email;
             if (admin) 
             {
@@ -46,6 +56,8 @@ namespace CSD412webProject.Models
             {
                 UserRole = Roles.Customer;
             }
+            this.MovieListsIds = new List<int>();
+            this.FriendsIds = new List<int>();
         }
 
         public void AddFriendId(int friendId)
