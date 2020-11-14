@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,16 +8,26 @@ namespace CSD412webProject.Models
 {
     public class MovieList
     {
-        private static int IdCounter = 1;
-        public int MovieListId { get; }
+        private static int _idCounter = 1;
+        [Key] public int MovieListId { get; set; }
         public int UserId { get; }
         public string MovieListName { get; set; }
         public string MovieListLink { get; set; }
         public bool IsPublic { get; set; }
         public List<int> MovieIds { get; }
+
+        public MovieList()
+        {
+            MovieListId = _idCounter++;
+            MovieListName = "Default";
+            IsPublic = false;
+            MovieListLink = "Default";
+            MovieIds = new List<int>();
+        }
+
         public MovieList(int userId, string name, bool isPublic)
         {
-            MovieListId = IdCounter++;
+            MovieListId = _idCounter++;
             MovieListName = name;
             IsPublic = isPublic;
             MovieListLink = null;
