@@ -58,9 +58,9 @@ namespace CSD412webProject.Models
             this.Id = id;
             this.MovieListId = listId;
             this.Title = title;
-            if(year < -1 || year > DateTime.Now.Year)
+            if(year < -1 || year > DateTime.Now.AddYears(5).Year)
             {
-                throw new Exception("Illegal movie year");
+                throw new Exception($"Illegal movie year = {year}");
             }
             else
             {

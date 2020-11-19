@@ -160,9 +160,14 @@ namespace CSD412webProject.Controllers
             foreach (var movieTemplate in results)
             {
                 var obj = movieTemplate;
+                string postePath = obj.GetValue("poster_path");
+                if (string.IsNullOrEmpty(postePath))
+                {
+                    continue;
+                }
                 int id = obj.GetValue("id");
                 string title = obj.GetValue("title");
-                string postePath = obj.GetValue("poster_path");
+                
                 string backDropPath = obj.GetValue("backdrop_path");
                 float rating = obj.GetValue("vote_average");
                 string description = obj.GetValue("overview");
@@ -193,7 +198,13 @@ namespace CSD412webProject.Controllers
 
             foreach (Movie movie in tempMovieList)
             {
+                
                 var jsonFIle = Searcher.SearchMovieById(movie.Id);
+                
+                if(jsonFIle.Result == null || jsonFIle == null)
+                {
+                    continue;
+                }
                 dynamic dynamicArray = JsonConvert.DeserializeObject(jsonFIle.Result);
                 var videoResults = dynamicArray.GetValue("results");
                 if (videoResults.Count >= 1)
@@ -202,8 +213,17 @@ namespace CSD412webProject.Controllers
                     string videoLink = firstVideoObject.GetValue("key");
                     movie.VideoLink = videoLink;
                 }
+                else
+                {
+                    continue;
+                }
             }
             return View(tempMovieList);
+        }
+
+        public IActionResult MovieInfo(Movie movie)
+        {
+            return View(movie);
         }
 
         private bool MovieExists(int id)
