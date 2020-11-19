@@ -35,7 +35,7 @@ namespace CSD412webProject.Models
             }
             else
             {
-                throw new Exception("Error occured while connecting to TMDB API");
+                throw new Exception($"Error occured while connecting to TMDB API by movie title = {movieTitle}");
             }
         }
 
@@ -54,7 +54,8 @@ namespace CSD412webProject.Models
             }
             else
             {
-                throw new Exception("Error occured while connecting to TMDB API");
+                return null;
+                //throw new Exception($"Error occured while connecting to TMDB API by searching movie by id ={movieId}");
             }
         }
     }
