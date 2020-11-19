@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSD412webProject.Data;
 using CSD412webProject.Models;
+using Newtonsoft.Json;
 
 namespace CSD412webProject.Controllers
 {
@@ -143,6 +144,66 @@ namespace CSD412webProject.Controllers
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult MovieSearchResults(string userInput)
+        {
+            if (userInput == null || userInput == "")
+            {
+                throw new Exception("Cannot process null or empty sting request");
+            }
+            string movieTitle = userInput;
+            List<Movie> tempMovieList = new List<Movie>();
+            var json = Searcher.SearchMovieByTitle(movieTitle);
+            dynamic array = JsonConvert.DeserializeObject(json.Result);
+            var results = array.GetValue("results");
+            foreach (var movieTemplate in results)
+            {
+                var obj = movieTemplate;
+                int id = obj.GetValue("id");
+                string title = obj.GetValue("title");
+                string postePath = obj.GetValue("poster_path");
+                string backDropPath = obj.GetValue("backdrop_path");
+                float rating = obj.GetValue("vote_average");
+                string description = obj.GetValue("overview");
+                bool adult = obj.GetValue("adult");
+                var ids = obj.GetValue("genre_ids");
+                int[] genreIds = new int[ids.Count];
+                int counter = 0;
+                foreach (var num in ids)
+                {
+                    genreIds[counter] = num;
+                    counter++;
+                }
+
+                string date = obj.GetValue("release_date");
+
+                int releaseYear = -1;
+                if (date != null && date.Length >=5)
+                {
+                    string year = date.Substring(0, 4);
+                    releaseYear = Int32.Parse(year);
+                }
+
+                List<int> genres = genreIds.OfType<int>().ToList();
+
+                Movie tmpMovie = new Movie(id, -1, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
+                tempMovieList.Add(tmpMovie);
+            }
+
+            foreach (Movie movie in tempMovieList)
+            {
+                var jsonFIle = Searcher.SearchMovieById(movie.Id);
+                dynamic dynamicArray = JsonConvert.DeserializeObject(jsonFIle.Result);
+                var videoResults = dynamicArray.GetValue("results");
+                if (videoResults.Count >= 1)
+                {
+                    var firstVideoObject = videoResults[0];
+                    string videoLink = firstVideoObject.GetValue("key");
+                    movie.VideoLink = videoLink;
+                }
+            }
+            return View(tempMovieList);
         }
 
         private bool MovieExists(int id)

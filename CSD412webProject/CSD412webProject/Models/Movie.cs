@@ -48,7 +48,8 @@ namespace CSD412webProject.Models
             string poster,
             string backdrop,
             float rating,
-            string link)
+            string link,
+            List<int> ids)
         {
             if(id <= 0)
             {
@@ -57,7 +58,7 @@ namespace CSD412webProject.Models
             this.Id = id;
             this.MovieListId = listId;
             this.Title = title;
-            if(year < 1888 || year > DateTime.Now.Year)
+            if(year < -1 || year > DateTime.Now.Year)
             {
                 throw new Exception("Illegal movie year");
             }
@@ -80,7 +81,7 @@ namespace CSD412webProject.Models
             this.Rating = rating;
             this.VideoLink = link;
             this.Director = null;
-            this.GenreIds = new List<int>();
+            this.GenreIds = ids;
             this.ActorsIds = new List<int>();
         }
         

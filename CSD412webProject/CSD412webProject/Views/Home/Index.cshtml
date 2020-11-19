@@ -3,6 +3,22 @@
 }
 
 <div class="text-center">
+
+    <!-- SEARCH BAR -->
+    <div>
+        @using (Html.BeginForm("MovieSearchResults", "Movies",  FormMethod.Post))
+        {
+            <form class=" form-inline justify-content-center mb-3">
+                <!--input id="userInput"  type="text" class=" form-control input-control mb-2"
+               placeholder="Search for a movie..." /-->
+                @Html.TextBox("userInput")
+                <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-search"></i></button>
+            </form>
+        }
+    </div>
+
+
+
     <h1 class="display-4 text-danger">Cinematoria</h1>
     <h2><i class="fas fa-theater-masks fa-7x mb-2"></i></h2>
     <!-- VIDEO PLAY -->
@@ -11,13 +27,13 @@
             <div class="row h-100">
                 <div class="col">
                     <div class="container p-5 h-100">
-                        <a id=" = "play-button" href="#" class="video"
-                           data-video="https://www.youtube.com/embed/9XaS93WMRQQ"
+                        <a id=" = " play-button" href="#" class="video"
+                           data-video="https://www.youtube.com/embed/LdOM0x0XDMo"
                            data-toggle="modal" data-target="#videoModal">
                             <i class="fas fa-play fa-5x"></i>
                             <style>
                                 a {color: #db3553;}
-                                a:hover { color:#0cc431;}
+                                a:hover {color: #0cc431;}
                             </style>
                         </a>
                     </div>
