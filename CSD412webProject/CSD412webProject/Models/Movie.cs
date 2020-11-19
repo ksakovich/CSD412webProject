@@ -8,8 +8,8 @@ namespace CSD412webProject.Models
 {
     public class Movie
     {
-        [Key] public int Id { get; }
-        public int ListId { get; set; }
+        [Key] public int Id { get; set; }
+        public int MovieListId { get; set; }
         public string Title { get; }
         public int ReleaseYear { get; }
         public bool Adult { get; set; }
@@ -22,8 +22,25 @@ namespace CSD412webProject.Models
         public List<int> GenreIds { get; }
         public List<int> ActorsIds { get; }
 
+        public Movie()
+        {
+            this.Id = 0;
+            this.MovieListId = 0;
+            this.Title = "Default";
+            this.ReleaseYear = -1;
+            this.Adult = false;
+            this.Description = "Default";
+            this.PosterPath = "Default"; 
+            this.BackDropPath = "Default";
+            this.Rating = -1;
+            this.VideoLink = "Default";
+            this.GenreIds = new List<int>();
+            this.ActorsIds = new List<int>();
+        }
+
         public Movie(
             int id,
+            int listId,
             string title,
             int year,
             bool adult,
@@ -31,39 +48,41 @@ namespace CSD412webProject.Models
             string poster,
             string backdrop,
             float rating,
-            string link)
+            string link,
+            List<int> ids)
         {
             if(id <= 0)
             {
                 throw new Exception("ERROR: Illegal ID");
             }
-            Id = id;
-            Title = title;
-            if(year < 1888 || year > DateTime.Now.Year)
+            this.Id = id;
+            this.MovieListId = listId;
+            this.Title = title;
+            if(year < -1 || year > DateTime.Now.Year)
             {
                 throw new Exception("Illegal movie year");
             }
             else
             {
-                ReleaseYear = year;
+                this.ReleaseYear = year;
             }
 
             if(adult)
             {
-                Adult = true;
+                this.Adult = true;
             }
             else
             {
                 Adult = false;
             }
-            Description = description;
-            PosterPath = poster;
-            BackDropPath = backdrop;
-            Rating = rating;
-            VideoLink = link;
-            Director = null;
-            GenreIds = new List<int>();
-            ActorsIds = new List<int>();
+            this.Description = description;
+            this.PosterPath = poster;
+            this.BackDropPath = backdrop;
+            this.Rating = rating;
+            this.VideoLink = link;
+            this.Director = null;
+            this.GenreIds = ids;
+            this.ActorsIds = new List<int>();
         }
         
 
