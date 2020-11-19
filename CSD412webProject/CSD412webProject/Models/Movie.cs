@@ -21,6 +21,7 @@ namespace CSD412webProject.Models
         public string Director { get; set; }
         public List<int> GenreIds { get; }
         public List<int> ActorsIds { get; }
+        public List<string> GenreName { get; }
 
         public Movie()
         {
@@ -84,8 +85,6 @@ namespace CSD412webProject.Models
             this.GenreIds = ids;
             this.ActorsIds = new List<int>();
         }
-        
-
         public void AddGenreId(int genreId)
         {
             if(GenreIds.Contains(genreId))
