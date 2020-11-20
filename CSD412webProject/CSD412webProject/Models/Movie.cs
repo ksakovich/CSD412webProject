@@ -19,9 +19,10 @@ namespace CSD412webProject.Models
         public float Rating { get; set; }
         public string VideoLink { get; set; }
         public string Director { get; set; }
+
         public List<int> GenreIds { get; }
         public List<int> ActorsIds { get; }
-        public List<string> GenreName { get; }
+        public List<string> GenreNames { get; set; }
 
         public Movie()
         {
@@ -37,6 +38,7 @@ namespace CSD412webProject.Models
             this.VideoLink = "Default";
             this.GenreIds = new List<int>();
             this.ActorsIds = new List<int>();
+            this.GenreNames = new List<string>();
         }
 
         public Movie(
@@ -50,7 +52,8 @@ namespace CSD412webProject.Models
             string backdrop,
             float rating,
             string link,
-            List<int> ids)
+            List<int> ids
+            )
         {
             if(id <= 0)
             {
@@ -138,6 +141,27 @@ namespace CSD412webProject.Models
             {
                 GenreIds.Remove(actorId);
             }
+        }
+
+        public void AddGenreName(string genreName)
+        {
+            if (GenreNames.Contains(genreName))
+            {
+                throw new Exception("This genre name is already in the list");
+            }
+            if (genreName == null)
+            {
+                throw new Exception("Genre name cannot be null");
+            }
+            else
+            {
+                GenreNames.Add(genreName);
+            }
+        }
+
+        public void AssignGenreList(List<string> genres)
+        {
+            this.GenreNames = genres;
         }
     }
 }
