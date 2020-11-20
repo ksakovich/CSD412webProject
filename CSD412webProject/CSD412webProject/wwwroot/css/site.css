@@ -80,6 +80,9 @@ a {
 a:hover {
     color: #0cc431;
 }
+footer{
+    position: relative;
+}
 
 
 #home-section .dark-overlay {
@@ -88,7 +91,7 @@ a:hover {
     left: 0;
     width: 100%;
     min-height: 700px;
-    background: rgba(50, 146, 166, 0.8);
+    /*background: rgba(50, 146, 166, 0.8);*/
 }
 
 #home-section .home-inner {
@@ -114,3 +117,28 @@ a:hover {
     padding: 5px;
     border-radius: 5px;
 }
+#video-play {
+    position: relative;
+    min-height: 200px;
+    background: url("../img/media.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: 0, -300px;
+    text-align: center;
+    color: #fff;
+}
+
+    #video-play a {
+        color: #fff;
+    }
+
+    .movie-box {
+        display: table;
+    }
+
+    .movie-row {
+        display: table-row;
+    }
+    .movie-cell {
+        display: table-cell;
+    }

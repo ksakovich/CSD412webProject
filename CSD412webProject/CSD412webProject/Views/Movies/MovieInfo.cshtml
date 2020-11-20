@@ -6,70 +6,94 @@
 
 <h1>MovieInfo</h1>
 
-<div id="home-section">
-    <h4>Movie</h4>
-    <hr />
-    <div class="media">
-        @{
-            string path = "https://image.tmdb.org/t/p/w342/";
-            path = path + Model.PosterPath;
-            string bgPath = "https://image.tmdb.org/t/p/w780/";
-            bgPath += Model.BackDropPath;
-        }
-        <img class="mr-3" src=@path alt=" @Model.Title" />
-        <div class="media-body">
-            <h5 class="mt-0">@Model.Title</h5>
-            <p>@Model.Description</p>
-            <p class="mb-0">@Model.ReleaseYear</p>
-        </div>
-    </div>
+<section id="home-section">
+    <div class="dark-overlay container movie-box">
+        <h4>Movie</h4>
+        <hr />
+        <div class="media movie-row">
+            @{
+                string path = "https://image.tmdb.org/t/p/w342/";
+                path = path + Model.PosterPath;
+                string bgPath = "https://image.tmdb.org/t/p/w780/";
+                bgPath += Model.BackDropPath;
+            }
+            <img class="mr-3" src=@path alt=" @Model.Title" />
+            <div class="media-body row container">
+                <h5 class="mt-0">@Model.Title</h5>
+                <p>@Model.Description</p>
+                <p class="mb-0">@Model.ReleaseYear</p>
+            </div>
 
 
-</div>
+            <div class="movie-row">
+                <!-- HOME ICON SECTION -->
+                <section id="movie-buttons" class="py-5">
+                    <div class="movie-cell">
+                        <div class="row">
+                            <div class="col md-4 mb-4 text-center">
+                                <!-- VIDEO PLAY -->
+                                <section id="video-play">
+                                    @*<div class="dark-overlay ">
+                                        <div class="row h-100">
+                                            <div class="row">*@
 
-<!-- VIDEO PLAY -->
-<section id="video-play">
-    <div class="dark-overlay">
-        <div class="row h-100">
-            <div class="col">
-                <div class="container p-5 h-100 text-white">
-                    <a id=" " play-button" href="#" class="video"
-                       @{ string link = "https://www.youtube.com/embed/"; link += Model.VideoLink; }
-                       data-video=@link
-                       data-toggle="modal" data-target="#videoModal">
-                        <i class="fas fa-play fa-5x"></i>
-                        <style>
-                            #home-section {
-                                position: relative;
-                                background: url( @bgPath );
-                                background-repeat: no-repeat;
-                                background-size: cover;
-                                background-attachment: fixed;
-                                min-height: 700px;
-}
-                        </style>
-                    </a>
-                </div>
+                                                <div class="container h-100 text-white">
+                                                    <a id=" " play-button" href="#" class="video"
+                                                       @{ string link = "https://www.youtube.com/embed/"; link += Model.VideoLink; }
+                                                       data-video=@link
+                                                       data-toggle="modal" data-target="#videoModal">
+                                                        <i class="fas fa-play fa-3x"></i>
+                                                        <h6>Watch Trailer</h6>
+                                                        <style>
+                                                 #home-section {
+                                                     position: relative;
+                                                     background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url( @bgPath );
+                                                     background-repeat: no-repeat;
+                                                     background-size: cover;
+                                                     background-attachment: fixed;
+                                                     min-height: 700px;
+                                                 }
+                                                        </style>
+                                                    </a>
+                                                </div>
+                                            @*</div>
+                                        </div>
+                                    </div>*@
+                                </section>
+
+                                <!-- VIDEO MODAL -->
+                                <div class="modal fade" id="videoModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <button class="close" data-dismiss="modal">
+                                                    <span>&times;</span>
+                                                </button>
+                                                <iframe src="" frameborder="0" height="350"
+                                                        width="100%" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col md-4 mb-4 text-center movie-cell">
+                        <i class="far fa-bookmark fa-3x mb-2"></i>
+                        <h6>Watch It Later</h6>
+                    </div>
+                    <div class="col md-4 mb-4 text-center movie-cell">
+                        <i class="far fa-star fa-3x mb-2"></i>
+                        <h6>Add It To Favorites</h6>
+                    </div>
+                    <div class="col md-4 mb-4 text-center movie-cell">
+                        <i class="fas fa-plus-square fa-3x mb-2"></i>
+                        <h6>Add It To Another List</h6>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 </section>
 
-<!-- VIDEO MODAL -->
-<div class="modal fade" id="videoModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-                <iframe src="" frameborder="0" height="350"
-                        width="100%" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

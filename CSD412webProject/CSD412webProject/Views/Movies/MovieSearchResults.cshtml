@@ -71,21 +71,21 @@
                 <td>
                     <div class="btn btn-danger">
                         @Html.ActionLink("Movie Details", "MovieInfo", new
-                            {
-                                id = item.Id,
-                                MovieListId = item.MovieListId,
-                                Title = item.Title,
-                                ReleaseYear = item.ReleaseYear,
-                                Adult = item.Adult,
-                                Description = item.Description,
-                                PosterPath = item.PosterPath,
-                                BackDropPath = item.BackDropPath,
-                                Rating = item.Rating,
-                                VideoLink = item.VideoLink,
-                                GenreIds = item.GenreIds,
-                                ActorsIds = item.ActorsIds,
-                                Director = item.Director
-                            })
+                   {
+                       id = item.Id,
+                       MovieListId = item.MovieListId,
+                       Title = item.Title,
+                       ReleaseYear = item.ReleaseYear,
+                       adult = item.Adult,
+                       description = item.Description,
+                       PosterPath = item.PosterPath,
+                       BackDropPath = item.BackDropPath,
+                       Rating = item.Rating,
+                       VideoLink = item.VideoLink,
+                       GenreIds = item.GenreIds,
+                       ActorsIds = item.ActorsIds,
+                       Director = item.Director
+                   })
 
                     </div>
                 </td>
