@@ -10,11 +10,11 @@ namespace CSD412webProject.Models
     {
         private static int _idCounter = 1;
         [Key] public int MovieListId { get; set; }
-        public int UserId { get; }
+        public int UserId { get; set; }
         public string MovieListName { get; set; }
         public string MovieListLink { get; set; }
         public bool IsPublic { get; set; }
-        public List<int> MovieIds { get; }
+        public List<int> MovieIds { get; set; }
 
         public MovieList()
         {
@@ -28,6 +28,7 @@ namespace CSD412webProject.Models
         public MovieList(int userId, string name, bool isPublic)
         {
             MovieListId = _idCounter++;
+            UserId = userId;
             MovieListName = name;
             IsPublic = isPublic;
             MovieListLink = null;

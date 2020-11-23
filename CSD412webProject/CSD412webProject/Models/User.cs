@@ -26,8 +26,8 @@ namespace CSD412webProject.Models
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Roles UserRole { get; set; }
-        public List<int> MovieListsIds { get; }
-        public List<int> FriendsIds { get; }
+        public List<int> MovieListsIds { get; set; }
+        public List<int> FriendsIds { get; set; }
 
         public User()
         {
