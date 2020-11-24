@@ -16,5 +16,6 @@ namespace CSD412webProject.Data
         public DbSet<CSD412webProject.Models.User> User { get; set; }
         public DbSet<CSD412webProject.Models.Movie> Movie { get; set; }
         public DbSet<CSD412webProject.Models.MovieList> MovieList { get; set; }
+        public DbSet<CSD412webProject.Models.Genre> Genre { get; set; }
     }
 }
