@@ -9,8 +9,6 @@
         @using (Html.BeginForm("MovieSearchResults", "Movies",  FormMethod.Post))
         {
             <form class=" form-inline justify-content-center mb-3">
-                <!--input id="userInput"  type="text" class=" form-control input-control mb-2"
-               placeholder="Search for a movie..." /-->
                 @Html.TextBox("userInput")
                 <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-search"></i></button>
             </form>
