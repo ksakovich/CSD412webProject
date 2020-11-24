@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -26,7 +27,11 @@ namespace CSD412webProject.Models
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Roles UserRole { get; set; }
+
+        [NotMapped]
         public List<int> MovieListsIds { get; set; }
+
+        [NotMapped]
         public List<int> FriendsIds { get; set; }
 
         public User()

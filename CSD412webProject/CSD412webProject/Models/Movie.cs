@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,8 +21,13 @@ namespace CSD412webProject.Models
         public string VideoLink { get; set; }
         public string Director { get; set; }
 
+        [NotMapped]
         public List<int> GenreIds { get; set; }
+
+        [NotMapped]
         public List<int> ActorsIds { get; set; }
+
+        [NotMapped]
         public List<string> GenreNames { get; set; }
 
         public Movie()

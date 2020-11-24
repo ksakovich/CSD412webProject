@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace CSD412webProject.Models
         public string MovieListName { get; set; }
         public string MovieListLink { get; set; }
         public bool IsPublic { get; set; }
+
+        [NotMapped]
         public List<int> MovieIds { get; set; }
 
         public MovieList()
