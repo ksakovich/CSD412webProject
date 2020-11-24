@@ -152,8 +152,27 @@ namespace CSD412webProject.Controllers
             {
                 throw new Exception("Cannot process null or empty sting request");
             }
-            string movieTitle = userInput;
             List<Movie> tempMovieList = new List<Movie>();
+            SearchMovieById(userInput, tempMovieList);
+            PopulateLinks(tempMovieList);
+            PopulateGenres(tempMovieList);
+
+            return View(tempMovieList);
+        }
+
+        public IActionResult MovieInfo(Movie movie)
+        {
+            return View(movie);
+        }
+
+        private bool MovieExists(int id)
+        {
+            return _context.Movie.Any(e => e.Id == id);
+        }
+
+
+        private void SearchMovieById(string movieTitle, List<Movie> tempMovieList)
+        {
             var json = Searcher.SearchMovieByTitle(movieTitle);
             dynamic array = JsonConvert.DeserializeObject(json.Result);
             var results = array.GetValue("results");
@@ -167,7 +186,7 @@ namespace CSD412webProject.Controllers
                 }
                 int id = obj.GetValue("id");
                 string title = obj.GetValue("title");
-                
+
                 string backDropPath = obj.GetValue("backdrop_path");
                 float rating = obj.GetValue("vote_average");
                 string description = obj.GetValue("overview");
@@ -184,7 +203,7 @@ namespace CSD412webProject.Controllers
                 string date = obj.GetValue("release_date");
 
                 int releaseYear = -1;
-                if (date != null && date.Length >=5)
+                if (date != null && date.Length >= 5)
                 {
                     string year = date.Substring(0, 4);
                     releaseYear = Int32.Parse(year);
@@ -195,13 +214,44 @@ namespace CSD412webProject.Controllers
                 Movie tmpMovie = new Movie(id, -1, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
                 tempMovieList.Add(tmpMovie);
             }
+        }
+        private void PopulateGenres(List<Movie> tempMovieList)
+        {
+            //getting genres
+            var jsonGenres = Searcher.SearchForGenres();
+            if (jsonGenres.Result == null || jsonGenres == null)
+            {
+                throw new Exception("Genres are empty");
+            }
+            dynamic genresArray = JsonConvert.DeserializeObject(jsonGenres.Result);
+            var genresResults = genresArray.GetValue("genres");
 
+            foreach (var genre in genresResults)
+            {
+                var rawGenreId = genre.GetValue("id");
+                int genreId = (int)rawGenreId;
+                var rawGenreName = genre.GetValue("name");
+                string genreName = (string)rawGenreName;
+                foreach (var movie in tempMovieList)
+                {
+                    foreach (var movieGenreId in movie.GenreIds)
+                    {
+                        if (movieGenreId == genreId)
+                        {
+                            movie.AddGenreName(genreName);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void PopulateLinks(List<Movie> tempMovieList)
+        {
             foreach (Movie movie in tempMovieList)
             {
-                
                 var jsonFIle = Searcher.SearchMovieById(movie.Id);
-                
-                if(jsonFIle.Result == null || jsonFIle == null)
+
+                if (jsonFIle.Result == null || jsonFIle == null)
                 {
                     continue;
                 }
@@ -218,17 +268,6 @@ namespace CSD412webProject.Controllers
                     continue;
                 }
             }
-            return View(tempMovieList);
-        }
-
-        public IActionResult MovieInfo(Movie movie)
-        {
-            return View(movie);
-        }
-
-        private bool MovieExists(int id)
-        {
-            return _context.Movie.Any(e => e.Id == id);
         }
     }
 }

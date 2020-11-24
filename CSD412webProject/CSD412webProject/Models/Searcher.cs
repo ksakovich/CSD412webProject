@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace CSD412webProject.Models
 {
@@ -11,9 +13,12 @@ namespace CSD412webProject.Models
     {
         public const string apiUrl = "https://api.themoviedb.org/3/";
         public static HttpClient client;
+        private static string apiKey = Environment.GetEnvironmentVariable("TMDB_API_KEY");
 
         private static void ConnectClient()
         { 
+
+            //bool isLocal = HttpContext.Request.IsLocal;
             client = new HttpClient();
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
@@ -25,7 +30,7 @@ namespace CSD412webProject.Models
             ConnectClient();
 
             //GET Method  
-            string apiKey = Environment.GetEnvironmentVariable("TMDB_API_KEY");
+            
             string urlForSearchingMovieByTitle = $"search/movie?api_key={apiKey}&language=en-US&query=";
             HttpResponseMessage response = await client.GetAsync(urlForSearchingMovieByTitle + movieTitle);
             if (response.IsSuccessStatusCode)
@@ -41,7 +46,6 @@ namespace CSD412webProject.Models
 
         public static async Task<string> SearchMovieById(int movieId)
         {
-            string apiKey = Environment.GetEnvironmentVariable("TMDB_API_KEY");
             string urlForSearchMovieById = $"movie/{movieId}/videos?api_key={apiKey}";
             ConnectClient();
 
@@ -55,7 +59,25 @@ namespace CSD412webProject.Models
             else
             {
                 return null;
-                //throw new Exception($"Error occured while connecting to TMDB API by searching movie by id ={movieId}");
+                 //throw new Exception($"Error occured while connecting to TMDB API by searching movie by id ={movieId}");
+            }
+        }
+         public static async Task<string>SearchForGenres()
+         {
+            string urlForSearchAllGenres = $"genre/movie/list?api_key={apiKey}&language=en-US";
+
+            ConnectClient();
+
+            //GET Method  
+            HttpResponseMessage response = await client.GetAsync(urlForSearchAllGenres);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonGenres = await response.Content.ReadAsStringAsync();
+                return jsonGenres;
+            }
+            else
+            {
+                throw new Exception($"Error occured while connecting to TMDB API by searching for genres");
             }
         }
     }
