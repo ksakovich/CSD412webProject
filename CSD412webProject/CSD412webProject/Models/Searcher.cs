@@ -10,8 +10,6 @@ namespace CSD412webProject.Models
     public static class Searcher
     {
         public const string apiUrl = "https://api.themoviedb.org/3/";
-        public const string urlForSearchingMovieByTitle ="search/movie?api_key=034a2378c1b093a7a29b0ae0ea2f6268&language=en-US&query=";
-        //public const string urlForSearchMovieById = "movie/10555/videos?api_key=034a2378c1b093a7a29b0ae0ea2f6268&language=en-US";
         public static HttpClient client;
 
         private static void ConnectClient()
@@ -27,6 +25,8 @@ namespace CSD412webProject.Models
             ConnectClient();
 
             //GET Method  
+            string apiKey = Environment.GetEnvironmentVariable("TMDB_API_KEY");
+            string urlForSearchingMovieByTitle = $"search/movie?api_key={apiKey}&language=en-US&query=";
             HttpResponseMessage response = await client.GetAsync(urlForSearchingMovieByTitle + movieTitle);
             if (response.IsSuccessStatusCode)
             {
@@ -41,8 +41,8 @@ namespace CSD412webProject.Models
 
         public static async Task<string> SearchMovieById(int movieId)
         {
-            
-            string urlForSearchMovieById = $"movie/{movieId}/videos?api_key=034a2378c1b093a7a29b0ae0ea2f6268";
+            string apiKey = Environment.GetEnvironmentVariable("TMDB_API_KEY");
+            string urlForSearchMovieById = $"movie/{movieId}/videos?api_key={apiKey}";
             ConnectClient();
 
             //GET Method  

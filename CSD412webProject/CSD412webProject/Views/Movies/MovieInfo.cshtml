@@ -1,10 +1,10 @@
 ﻿@model CSD412webProject.Models.Movie
 
 @{
-    ViewData["Title"] = "Movie Info";
+    ViewData["Title"] = "Cinematoria";
 }
 
-<h1>MovieInfo</h1>
+<h1 class=" text-danger">@Model.Title</h1>
 
 <section id="home-section">
     <div class="dark-overlay container movie-box">
@@ -21,9 +21,19 @@
             <div class="media-body row container">
                 <h5 class="mt-0">@Model.Title</h5>
                 <p>@Model.Description</p>
-                <p class="mb-0">@Model.ReleaseYear</p>
-            </div>
+                <p class="mb-1">Release Year</p>
+                <p class="mb-1 text-danger">@Model.ReleaseYear</p>
 
+                @{
+                    var genres = Model.GenreIds;
+                    foreach (var genre in genres)
+                    {
+                        <br />
+                        <p>@genre</p>
+                        <br />
+                    }
+                }
+            </div>
 
             <div class="movie-row">
                 <!-- HOME ICON SECTION -->
@@ -42,7 +52,7 @@
                                                        @{ string link = "https://www.youtube.com/embed/"; link += Model.VideoLink; }
                                                        data-video=@link
                                                        data-toggle="modal" data-target="#videoModal">
-                                                        <i class="fas fa-play fa-3x"></i>
+                                                        <i class="fas fa-play fa-2x"></i>
                                                         <h6>Watch Trailer</h6>
                                                         <style>
                                                  #home-section {
@@ -80,16 +90,12 @@
                     </div>
 
                     <div class="col md-4 mb-4 text-center movie-cell">
-                        <i class="far fa-bookmark fa-3x mb-2"></i>
+                        <i class="far fa-bookmark fa-2x mb-2"></i>
                         <h6>Watch It Later</h6>
                     </div>
                     <div class="col md-4 mb-4 text-center movie-cell">
-                        <i class="far fa-star fa-3x mb-2"></i>
+                        <i class="far fa-star fa-2x mb-2"></i>
                         <h6>Add It To Favorites</h6>
-                    </div>
-                    <div class="col md-4 mb-4 text-center movie-cell">
-                        <i class="fas fa-plus-square fa-3x mb-2"></i>
-                        <h6>Add It To Another List</h6>
                     </div>
                 </section>
             </div>

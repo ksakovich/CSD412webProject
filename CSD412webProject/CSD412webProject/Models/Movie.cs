@@ -10,8 +10,8 @@ namespace CSD412webProject.Models
     {
         [Key] public int Id { get; set; }
         public int MovieListId { get; set; }
-        public string Title { get; }
-        public int ReleaseYear { get; }
+        public string Title { get; set;  }
+        public int ReleaseYear { get; set; }
         public bool Adult { get; set; }
         public string Description { get; set; }
         public string PosterPath { get; set; }
@@ -20,8 +20,8 @@ namespace CSD412webProject.Models
         public string VideoLink { get; set; }
         public string Director { get; set; }
 
-        public List<int> GenreIds { get; }
-        public List<int> ActorsIds { get; }
+        public List<int> GenreIds { get; set; }
+        public List<int> ActorsIds { get; set; }
         public List<string> GenreNames { get; set; }
 
         public Movie()
