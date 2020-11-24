@@ -61,7 +61,7 @@
                 </td>
                 <td>
                     @{
-                        var genres = item.GenreIds;
+                        var genres = item.GenreNames;
                         foreach (var genre in genres)
                         {
                             <p>@genre</p>
@@ -85,7 +85,8 @@
                        VideoLink = item.VideoLink,
                        GenreIds = item.GenreIds,
                        ActorsIds = item.ActorsIds,
-                       Director = item.Director
+                       Director = item.Director,
+                       GenreNAmes = item.GenreNames
                    })
 
                     </div>

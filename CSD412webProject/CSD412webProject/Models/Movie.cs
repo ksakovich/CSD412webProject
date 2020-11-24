@@ -87,6 +87,7 @@ namespace CSD412webProject.Models
             this.Director = null;
             this.GenreIds = ids;
             this.ActorsIds = new List<int>();
+            this.GenreNames = new List<string>();
         }
         public void AddGenreId(int genreId)
         {
