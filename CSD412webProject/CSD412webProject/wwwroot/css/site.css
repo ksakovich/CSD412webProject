@@ -146,11 +146,11 @@ footer{
 
 .movie-row {
     display:flex;
-
 }
+
     .movie-cell {
         display:table-cell;
-    }
+    } 
 
 
   
