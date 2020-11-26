@@ -10,7 +10,6 @@ namespace CSD412webProject.Models
     public class Movie
     {
         [Key] public int Id { get; set; }
-        public int MovieListId { get; set; }
         public string Title { get; set;  }
         public int ReleaseYear { get; set; }
         public bool Adult { get; set; }
@@ -28,12 +27,10 @@ namespace CSD412webProject.Models
         public List<int> ActorsIds { get; set; }
 
         [NotMapped]
-        public List<string> GenreNames { get; set; }
-
+        public List<string> GenreNames { get; set; } // put List of Genres
         public Movie()
         {
             this.Id = 0;
-            this.MovieListId = 0;
             this.Title = "Default";
             this.ReleaseYear = -1;
             this.Adult = false;
@@ -49,7 +46,6 @@ namespace CSD412webProject.Models
 
         public Movie(
             int id,
-            int listId,
             string title,
             int year,
             bool adult,
@@ -66,7 +62,6 @@ namespace CSD412webProject.Models
                 throw new Exception("ERROR: Illegal ID");
             }
             this.Id = id;
-            this.MovieListId = listId;
             this.Title = title;
             if(year < -1 || year > DateTime.Now.AddYears(5).Year)
             {

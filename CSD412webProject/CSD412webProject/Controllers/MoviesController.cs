@@ -211,7 +211,7 @@ namespace CSD412webProject.Controllers
 
                 List<int> genres = genreIds.OfType<int>().ToList();
 
-                Movie tmpMovie = new Movie(id, -1, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
+                Movie tmpMovie = new Movie(id, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
                 tempMovieList.Add(tmpMovie);
             }
         }
