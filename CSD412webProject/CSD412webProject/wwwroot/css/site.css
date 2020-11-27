@@ -7,6 +7,7 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -22,6 +23,10 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.table {
+    margin-bottom: 8rem;
 }
 
 /* Sticky footer styles
@@ -56,18 +61,19 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
+  margin: 0;
 }
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 40px; /* Vertically center the text there */
 }
 
 /*Users custom additions
@@ -81,14 +87,16 @@ a:hover {
     color: #0cc431;
 }
 footer{
-    position: relative;
+    position: absolute;
+    bottom: 0;
 }
 
 
 #home-section .dark-overlay {
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: 20px;
     left: 0;
+    margin-bottom: 70px;
     width: 100%;
     min-height: 700px;
     /*background: rgba(50, 146, 166, 0.8);*/
@@ -118,7 +126,7 @@ footer{
     border-radius: 5px;
 }
 #video-play {
-    position: relative;
+    position:relative;
     min-height: 200px;
     background: url("../img/media.jpg");
     background-attachment: fixed;
@@ -133,12 +141,16 @@ footer{
     }
 
     .movie-box {
-        display: table;
+        display:table;
     }
 
-    .movie-row {
-        display: table-row;
-    }
+.movie-row {
+    display:flex;
+}
+
     .movie-cell {
-        display: table-cell;
-    }
+        display:table-cell;
+    } 
+
+
+  

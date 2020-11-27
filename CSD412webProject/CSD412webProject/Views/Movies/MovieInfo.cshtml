@@ -6,11 +6,12 @@
 
 <h1 class=" text-danger">@Model.Title</h1>
 
-<section id="home-section">
+<section id="home-section" class="home-inner">
     <div class="dark-overlay container movie-box">
         <h4>Movie</h4>
         <hr />
         <div class="media movie-row">
+
             @{
                 string path = "https://image.tmdb.org/t/p/w342/";
                 path = path + Model.PosterPath;
@@ -18,43 +19,43 @@
                 bgPath += Model.BackDropPath;
             }
             <img class="mr-3" src=@path alt=" @Model.Title" />
-            <div class="media-body row container">
-                <h5 class="mt-0">@Model.Title</h5>
-                <p>@Model.Description</p>
-                <p class="mb-1">Release Year</p>
-                <p class="mb-1 text-danger">@Model.ReleaseYear</p>
+            <div class="col-sm-7">
+                <div class="media-body-row-container">
 
-                @{
-                    var genres = Model.GenreNames;
-                    foreach (var genre in genres)
-                    {
-                        <br />
-                        <p>@genre</p>
-                        <br />
+                    <h2 class="mt-0">@Model.Title</h2>
+                    <p>@Model.Description</p>
+                    <p><span class="mb-1">Release Year: </span> 
+                    <span class="mb-1 text-danger mon">@Model.ReleaseYear</span>
+                    </p>
+                    @{
+                        var genres = Model.GenreNames;
+                        foreach (var genre in genres)
+                        {
+                            <p>@genre</p>
+                        }
                     }
-                }
-            </div>
+                </div>
 
-            <div class="movie-row">
-                <!-- HOME ICON SECTION -->
-                <section id="movie-buttons" class="py-5">
-                    <div class="movie-cell">
-                        <div class="row">
-                            <div class="col md-4 mb-4 text-center">
-                                <!-- VIDEO PLAY -->
-                                <section id="video-play">
-                                    @*<div class="dark-overlay ">
-                                        <div class="row h-100">
-                                            <div class="row">*@
+                <div class="movie-row">
+                    <!-- HOME ICON SECTION -->
+                    <section id="movie-buttons" class="py-5">
+                        <div class="movie-cell">
+                            <div class="row">
+                                <div class="col md-4 mb-4 text-center">
+                                    <!-- VIDEO PLAY -->
+                                    <section id="video-play">
+                                        @*<div class="dark-overlay ">
+                                    <div class="row h-100">
+                                        <div class="row">*@
 
-                                                <div class="container h-100 text-white">
-                                                    <a id=" " play-button" href="#" class="video"
-                                                       @{ string link = "https://www.youtube.com/embed/"; link += Model.VideoLink; }
-                                                       data-video=@link
-                                                       data-toggle="modal" data-target="#videoModal">
-                                                        <i class="fas fa-play fa-2x"></i>
-                                                        <h6>Watch Trailer</h6>
-                                                        <style>
+                                        <div class="container h-100 text-white">
+                                            <a id=" " play-button" href="#" class="video"
+                                               @{ string link = "https://www.youtube.com/embed/"; link += Model.VideoLink; }
+                                               data-video=@link
+                                               data-toggle="modal" data-target="#videoModal">
+                                                <i class="fas fa-play fa-2x"></i>
+                                                <h6 class=" text-danger">Watch Trailer</h6>
+                                                <style>
                                                  #home-section {
                                                      position: relative;
                                                      background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url( @bgPath );
@@ -63,43 +64,52 @@
                                                      background-attachment: fixed;
                                                      min-height: 700px;
                                                  }
-                                                        </style>
-                                                    </a>
-                                                </div>
-                                            @*</div>
+                                                </style>
+                                            </a>
                                         </div>
+                                        @*</div>
+                                    </div>
                                     </div>*@
-                                </section>
+                                    </section>
 
-                                <!-- VIDEO MODAL -->
-                                <div class="modal fade" id="videoModal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <button class="close" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
-                                                <iframe src="" frameborder="0" height="350"
-                                                        width="100%" allowfullscreen></iframe>
+                                    <!-- VIDEO MODAL -->
+                                    <div class="modal fade" id="videoModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                    <iframe src="" frameborder="0" height="350"
+                                                            width="100%" allowfullscreen></iframe>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col md-4 mb-4 text-center movie-cell">
+                                    <i class="far fa-bookmark fa-2x mb-2"></i>
+                                    <h6 class=" text-danger">Watch It Later</h6>
+                                </div>
+                                <div class="col md-4 mb-4 text-center movie-cell">
+                                    <i class="far fa-star fa-2x mb-2"></i>
+                                    <h6 class=" text-danger">Add It To Favorites</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col md-4 mb-4 text-center movie-cell">
-                        <i class="far fa-bookmark fa-2x mb-2"></i>
-                        <h6>Watch It Later</h6>
-                    </div>
-                    <div class="col md-4 mb-4 text-center movie-cell">
-                        <i class="far fa-star fa-2x mb-2"></i>
-                        <h6>Add It To Favorites</h6>
-                    </div>
-                </section>
+
+                    </section>
+                </div>
             </div>
+
         </div>
+            
+
+        
+        
     </div>
+
+
 </section>
 

@@ -11,9 +11,13 @@ namespace CSD412webProject.Models
     {
         [Key] public int Id { get; set; }
         public string Title { get; set;  }
+
+        [Display(Name = "Year")]
         public int ReleaseYear { get; set; }
         public bool Adult { get; set; }
         public string Description { get; set; }
+
+        [Display(Name = "Poster")]
         public string PosterPath { get; set; }
         public string BackDropPath { get; set; }
         public float Rating { get; set; }
@@ -21,6 +25,7 @@ namespace CSD412webProject.Models
         public string Director { get; set; }
 
         [NotMapped]
+        [Display(Name = "Genre")]
         public List<int> GenreIds { get; set; }
 
         [NotMapped]
