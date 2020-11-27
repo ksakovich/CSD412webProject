@@ -67,24 +67,25 @@
                 </td>
                 <td>
                     <div>
-                        <i class="fas fa-chevron-right fa-3x mb-2"></i>
-                        @Html.ActionLink("Details", "MovieInfo", new
-                   {
-                       id = item.Id,
-                       MovieListId = item.MovieListId,
-                       Title = item.Title,
-                       ReleaseYear = item.ReleaseYear,
-                       adult = item.Adult,
-                       description = item.Description,
-                       PosterPath = item.PosterPath,
-                       BackDropPath = item.BackDropPath,
-                       Rating = item.Rating,
-                       VideoLink = item.VideoLink,
-                       GenreIds = item.GenreIds,
-                       ActorsIds = item.ActorsIds,
-                       Director = item.Director,
-                       GenreNAmes = item.GenreNames
-                   })
+                        @*<i class="fas fa-chevron-right fa-3x mb-2 text-white"></i>*@
+                        <span class="btn btn-danger text-white">
+                            @Html.ActionLink(">>", "MovieInfo", new
+                       {
+                           id = item.Id,
+                           Title = item.Title,
+                           ReleaseYear = item.ReleaseYear,
+                           adult = item.Adult,
+                           description = item.Description,
+                           PosterPath = item.PosterPath,
+                           BackDropPath = item.BackDropPath,
+                           Rating = item.Rating,
+                           VideoLink = item.VideoLink,
+                           GenreIds = item.GenreIds,
+                           ActorsIds = item.ActorsIds,
+                           Director = item.Director,
+                           GenreNAmes = item.GenreNames
+                       })
+                        </span>
 
                     </div>
                 </td>

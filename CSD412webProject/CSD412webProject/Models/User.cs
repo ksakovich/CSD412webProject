@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,11 +8,9 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-
-
 namespace CSD412webProject.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public enum Roles
         {
@@ -19,39 +18,20 @@ namespace CSD412webProject.Models
             Customer,
         };
 
-        private static int _idCounter = 0;
-        [Key] public int Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
+        [PersonalData]
         public DateTime DateOfBirth { get; set; }
+        [PersonalData]
         public Roles UserRole { get; set; }
-
-        [NotMapped]
-        public List<int> MovieListsIds { get; set; }
-
-        [NotMapped]
-        public List<int> FriendsIds { get; set; }
+         [InverseProperty("User")]
+        public ListOfMovieLists ListOfMovieLists { get; set; }
+        public string Name { get; internal set; }
 
         public User()
         {
-            this.Id = _idCounter++;
-            this.Name = "Default";
-            this.LastName = "Default";
-            this.Username = "Default";
-            this.Email = "Default@email.com";
             this.UserRole = Roles.Customer;
-            this.MovieListsIds = new List<int>();
-            this.FriendsIds = new List<int>();
         }
-        public User(string name, string lastname, string username,string email, bool admin)
+        public User( bool admin)
         {
-            this.Id = _idCounter++;
-            this.Name = name;
-            this.LastName = lastname;
-            this.Username = username;
-            this.Email = email;
             if (admin) 
             {
                 UserRole = Roles.Admin;
@@ -59,64 +39,6 @@ namespace CSD412webProject.Models
             else
             {
                 UserRole = Roles.Customer;
-            }
-            this.MovieListsIds = new List<int>();
-            this.FriendsIds = new List<int>();
-        }
-
-        public void AddFriendId(int friendId)
-        {
-            if (FriendsIds.Contains(friendId))
-            {
-                throw new Exception("This friend ID is already in the list");
-            }
-            if (friendId < 0)
-            {
-                throw new Exception("Friend's ID cannot be negative");
-            }
-            else
-            {
-                FriendsIds.Add(friendId);
-            }
-        }
-
-        public void RemoveFriendId(int friendId)
-        {
-            if (!FriendsIds.Contains(friendId))
-            {
-                throw new Exception("Friend with this ID was not found");
-            }
-            else
-            {
-                FriendsIds.Remove(friendId);
-            }
-        }
-
-        public void AddMovieListId(int movieListId)
-        {
-            if (MovieListsIds.Contains(movieListId))
-            {
-                throw new Exception("This movie list ID is already in the list");
-            }
-            if (movieListId < 0)
-            {
-                throw new Exception("Movie list's ID cannot be negative");
-            }
-            else
-            {
-                MovieListsIds.Add(movieListId);
-            }
-        }
-
-        public void RemoveMovieListId(int movieListId)
-        {
-            if (!MovieListsIds.Contains(movieListId))
-            {
-                throw new Exception("Movie list with this ID was not found");
-            }
-            else
-            {
-                MovieListsIds.Remove(movieListId);
             }
         }
     }
