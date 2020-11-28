@@ -10,7 +10,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
@@ -69,7 +69,7 @@ body {
   margin-bottom: 80px;
 }
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
@@ -78,7 +78,6 @@ body {
 
 /*Users custom additions
     ------------------------------------------------*/
-
 a {
     color: #db3553;
 }
@@ -91,6 +90,9 @@ footer{
     bottom: 0;
 }
 
+#register-content {
+    margin-bottom: 80px;
+}
 
 #home-section .dark-overlay {
     position: relative;
@@ -150,7 +152,6 @@ footer{
 
     .movie-cell {
         display:table-cell;
-    } 
+    }
 
-
-  
+ 
