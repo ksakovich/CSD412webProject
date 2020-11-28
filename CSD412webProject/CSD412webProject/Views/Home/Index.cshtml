@@ -8,10 +8,10 @@
     <div>
         @using (Html.BeginForm("MovieSearchResults", "Movies", FormMethod.Post))
         {
-            <form class=" form-inline justify-content-center mb-3">
-                @Html.TextBox("userInput")
-                <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-search"></i></button>
-            </form>
+        <form class=" form-inline justify-content-center mb-3">
+            @Html.TextBox("userInput", "", new { placeholder = "Enter a movie title" })
+            <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-search"></i></button>
+        </form>
         }
     </div>
 
