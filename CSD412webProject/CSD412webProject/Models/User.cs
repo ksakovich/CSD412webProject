@@ -24,7 +24,7 @@ namespace CSD412webProject.Models
         public Roles UserRole { get; set; }
          [InverseProperty("User")]
         public ListOfMovieLists ListOfMovieLists { get; set; }
-        public string Name { get; internal set; }
+        public string FullName { get; internal set; }
 
         public User()
         {

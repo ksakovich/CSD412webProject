@@ -28,9 +28,6 @@ namespace CSD412webProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string azureDbKey = Environment.GetEnvironmentVariable("AZURE_DB_PASSWORD");
-            string connectionString = $"Server=tcp:ksakovichserver.database.windows.net,1433;Initial Catalog=Cinematoria;Persist Security Info=True;User ID=kirsak;Password={azureDbKey};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
-
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));

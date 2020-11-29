@@ -56,7 +56,7 @@ namespace CSD412webProject.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                Name = user.Name,
+                Name = user.FullName,
                 DOB = user.DateOfBirth,
                 PhoneNumber = phoneNumber
             };
@@ -98,9 +98,9 @@ namespace CSD412webProject.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-            if (Input.Name != user.Name)
+            if (Input.Name != user.FullName)
             {
-                user.Name = Input.Name;
+                user.FullName = Input.Name;
             }
 
             if (Input.DOB != user.DateOfBirth)
