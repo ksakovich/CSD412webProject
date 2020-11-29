@@ -5,25 +5,16 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CSD412webProject.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace CSD412webProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
-    //public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext()
-            : base()
-        {
-        }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string azureDbKey = Environment.GetEnvironmentVariable("AZURE_DB_PASSWORD");
-            optionsBuilder.UseSqlServer($"Server=tcp:ksakovichserver.database.windows.net,1433;Initial Catalog=Cinematoria;Persist Security Info=False;User ID=kirsak;Password={azureDbKey};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

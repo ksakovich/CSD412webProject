@@ -26,17 +26,21 @@ namespace CSD412webProject.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _applicationDbContext;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext applicationDbContext
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _applicationDbContext = applicationDbContext;
         }
 
         [BindProperty]
@@ -88,27 +92,27 @@ namespace CSD412webProject.Areas.Identity.Pages.Account
             {
                 var user = new User
                 {
-                    Name = Input.Name,
+                    FullName = Input.Name,
                     DateOfBirth = Input.DOB,
-                    UserName = Input.Email, Email = Input.Email, PasswordHash = Input.Password
+                    UserName = Input.Email, Email = Input.Email
                 };
-                //user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, Input.Password);
-                var listOfMovieList = new ListOfMovieLists(user);
-                var favoriteMovieList = new MovieList(listOfMovieList, "Favorites", false);
-                var watchLaterList = new MovieList(listOfMovieList, "WatchLater", false);
+                // user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, Input.Password);
 
-                //var result = await _userManager.CreateAsync(user, Input.Password);
-                //if (result.Succeeded)
+                var result = await _userManager.CreateAsync(user, Input.Password);
+                if (result.Succeeded)
                 {
-                    using (var context = new ApplicationDbContext())
                     {
-                        context.Add(favoriteMovieList);
-                        context.Add(watchLaterList);
-                        context.Add(listOfMovieList);
-                        context.Add(user);
-                        context.SaveChanges();
-                        context.Update(user);
-                        context.SaveChanges();
+                        var listOfMovieList = new ListOfMovieLists(user);
+                        var favoriteMovieList = new MovieList(listOfMovieList, "Favorites", false);
+                        var watchLaterList = new MovieList(listOfMovieList, "WatchLater", false);
+
+                        _applicationDbContext.Add(favoriteMovieList);
+                        _applicationDbContext.Add(watchLaterList);
+                        _applicationDbContext.Add(listOfMovieList);
+                        // _applicationDbContext.Add(user);
+                        _applicationDbContext.SaveChanges();
+                        // _applicationDbContext.Update(user);
+                        // _applicationDbContext.SaveChanges();
                     }
                     _logger.LogInformation("User created a new account with password.");
 
@@ -133,10 +137,10 @@ namespace CSD412webProject.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError(string.Empty, error.Description);
-                //}
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
             // If we got this far, something failed, redisplay form
