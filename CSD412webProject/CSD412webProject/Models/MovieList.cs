@@ -20,9 +20,9 @@ namespace CSD412webProject.Models
         public MovieList()
         {
             ListOfMovieLists = null;
-            MovieListName = "Default";
+            //MovieListName = "Default";
             IsPublic = false;
-            MovieListLink = "Default";
+            //MovieListLink = "Default";
             Movies = new List<Movie>();
         }
 
