@@ -9,7 +9,10 @@
         @using (Html.BeginForm("MovieSearchResults", "Movies", FormMethod.Post))
         {
         <form class=" form-inline justify-content-center mb-3">
-            @Html.TextBox("userInput", "", new { placeholder = "Enter a movie title" })
+            @Html.TextBox("userInput", "", new { placeholder = "Enter a movie title", 
+            required="required",
+            oninvalid = "this.setCustomValidity('Enter movie title to search')",
+            oninput = "this.setCustomValidity('')"})
             <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-search"></i></button>
         </form>
         }
