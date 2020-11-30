@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSD412webProject.Data;
 using CSD412webProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CSD412webProject.Controllers
 {
@@ -20,12 +21,15 @@ namespace CSD412webProject.Controllers
         }
 
         // GET: MovieLists
+        [Authorize]
         public async Task<IActionResult> Index()
         {
+            //var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l => l.MovieLists);
             return View(await _context.MovieList.ToListAsync());
         }
 
         // GET: MovieLists/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,18 +48,44 @@ namespace CSD412webProject.Controllers
         }
 
         // GET: MovieLists/Create
-        public IActionResult Create()
+        [Authorize]
+        public IActionResult Create([FromRoute] int id)
         {
-            return View();
+           //_context.ListOfMovieLists.
+
+
+
+            MovieList model = new MovieList()
+            {
+                ListOfMovieListsId = id
+            };
+            return View(model);
         }
 
         // POST: MovieLists/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieListId,MovieListName,MovieListLink,IsPublic")] MovieList movieList)
+        public async Task<IActionResult> Create([Bind("MovieListId,MovieListName,MovieListLink,IsPublic,ListOfMovieListsId")] MovieList movieList)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+            //Comment comment = new Comment
+            //{
+            //    InquiryID = model.InquiryID,
+            //    Text = model.Text,
+            //    TimePosted = DateTime.Now,
+            //    .... // set other properties (User etc) as required
+            //};
+
+            if (!ModelState.IsValid)
+            {
+                return View(movieList);
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(movieList);
@@ -66,6 +96,7 @@ namespace CSD412webProject.Controllers
         }
 
         // GET: MovieLists/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +115,7 @@ namespace CSD412webProject.Controllers
         // POST: MovieLists/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MovieListId,MovieListName,MovieListLink,IsPublic")] MovieList movieList)
@@ -117,6 +149,7 @@ namespace CSD412webProject.Controllers
         }
 
         // GET: MovieLists/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +168,7 @@ namespace CSD412webProject.Controllers
         }
 
         // POST: MovieLists/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

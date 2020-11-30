@@ -18,7 +18,7 @@ namespace CSD412webProject.Models
         public ListOfMovieLists()
         {
             User = null;
-            MovieLists = null;
+            MovieLists = new List<MovieList>();
         }
 
         public ListOfMovieLists(User user)

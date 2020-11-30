@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using CSD412webProject.Data;
 using CSD412webProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.Identity;
+
+
 
 namespace CSD412webProject.Controllers
 {
@@ -24,8 +27,8 @@ namespace CSD412webProject.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l=>l.MovieLists);
+            return View(await applicationDbContext.FirstAsync());
         }
 
         // GET: ListOfMovieLists/Details/5
