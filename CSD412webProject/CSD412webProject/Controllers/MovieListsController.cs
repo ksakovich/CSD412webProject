@@ -21,12 +21,11 @@ namespace CSD412webProject.Controllers
         }
 
         // GET: MovieLists
-        [Authorize]
-        public async Task<IActionResult> Index()
-        {
-            //var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l => l.MovieLists);
-            return View(await _context.MovieList.ToListAsync());
-        }
+        //[Authorize]
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.MovieList.ToListAsync());
+        //}
 
         // GET: MovieLists/Details/5
         [Authorize]
@@ -70,18 +69,6 @@ namespace CSD412webProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MovieListId,MovieListName,MovieListLink,IsPublic,ListOfMovieListsId")] MovieList movieList)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
-            //Comment comment = new Comment
-            //{
-            //    InquiryID = model.InquiryID,
-            //    Text = model.Text,
-            //    TimePosted = DateTime.Now,
-            //    .... // set other properties (User etc) as required
-            //};
-
             if (!ModelState.IsValid)
             {
                 return View(movieList);
@@ -90,7 +77,7 @@ namespace CSD412webProject.Controllers
             {
                 _context.Add(movieList);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(movieList);
         }
