@@ -171,13 +171,18 @@ namespace CSD412webProject.Controllers
 
         public async Task<IActionResult> MovieInfo(Movie movie)
         {
-            var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l => l.MovieLists);
-            var listOfMovieLists = await applicationDbContext.FirstAsync();
             var result = View(movie);
-            var watchLater = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "WatchLater").First();
-            result.ViewData.Add("WatchLaterId", watchLater.MovieListId);
-            var favorites = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "Favorites").First();
-            result.ViewData.Add("FavoritesId", favorites.MovieListId);
+
+            if(User.Identity.IsAuthenticated)
+            {
+                var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l => l.MovieLists);
+                var listOfMovieLists = await applicationDbContext.FirstAsync();
+
+                var watchLater = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "WatchLater").First();
+                result.ViewData.Add("WatchLaterId", watchLater.MovieListId);
+                var favorites = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "Favorites").First();
+                result.ViewData.Add("FavoritesId", favorites.MovieListId);
+            }
             return result;
         }
 
