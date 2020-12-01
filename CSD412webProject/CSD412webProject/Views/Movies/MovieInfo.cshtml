@@ -1,4 +1,7 @@
 ﻿@model CSD412webProject.Models.Movie
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Cinematoria";
@@ -24,8 +27,9 @@
 
                     <h2 class="mt-0">@Model.Title</h2>
                     <p>@Model.Description</p>
-                    <p><span class="mb-1">Release Year: </span> 
-                    <span class="mb-1 text-danger mon">@Model.ReleaseYear</span>
+                    <p>
+                        <span class="mb-1">Release Year: </span>
+                        <span class="mb-1 text-danger mon">@Model.ReleaseYear</span>
                     </p>
                     @{
                         var genres = Model.GenreNames;
@@ -45,8 +49,8 @@
                                     <!-- VIDEO PLAY -->
                                     <section id="video-play">
                                         @*<div class="dark-overlay ">
-                                    <div class="row h-100">
-                                        <div class="row">*@
+                                            <div class="row h-100">
+                                                <div class="row">*@
 
                                         <div class="container h-100 text-white">
                                             <a id=" " play-button" href="#" class="video"
@@ -68,8 +72,8 @@
                                             </a>
                                         </div>
                                         @*</div>
-                                    </div>
-                                    </div>*@
+                                            </div>
+                                            </div>*@
                                     </section>
 
                                     <!-- VIDEO MODAL -->
@@ -87,14 +91,59 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col md-4 mb-4 text-center movie-cell">
-                                    <i class="far fa-bookmark fa-2x mb-2"></i>
-                                    <h6 class=" text-danger">Watch It Later</h6>
-                                </div>
-                                <div class="col md-4 mb-4 text-center movie-cell">
-                                    <i class="far fa-star fa-2x mb-2"></i>
-                                    <h6 class=" text-danger">Add It To Favorites</h6>
-                                </div>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                            <div class="col md-4 mb-4 text-center movie-cell">
+                                <i class="far fa-bookmark fa-2x mb-2"></i>
+                                @*<h6 class=" text-danger">Watch It Later</h6>*@
+                                @{ 
+                                    var currentUser = await UserManager.GetUserAsync(User);
+                                    object listId;
+                                    ViewData.TryGetValue("WatchLaterId", out listId);
+                                }
+                                @Html.ActionLink("Watch It Later", "CreateMovie", "Movies", new
+                           {
+                               id = Model.Id,
+                               Title = Model.Title,
+                               ReleaseYear = Model.ReleaseYear,
+                               adult = Model.Adult,
+                               description = Model.Description,
+                               PosterPath = Model.PosterPath,
+                               BackDropPath = Model.BackDropPath,
+                               Rating = Model.Rating,
+                               VideoLink = Model.VideoLink,
+                               GenreIds = Model.GenreIds,
+                               ActorsIds = Model.ActorsIds,
+                               Director = Model.Director,
+                               GenreNames = Model.GenreNames,
+                               MovieListId = (int)listId
+                           })
+                            </div>
+                            <div class="col md-4 mb-4 text-center movie-cell">
+                                <i class="far fa-star fa-2x mb-2"></i>
+                                @*<h6 class=" text-danger">Add It To Favorites</h6>*@
+                                @{ 
+                                    ViewData.TryGetValue("FavoritesId", out listId);
+                                }
+                                @Html.ActionLink("Add It To Favorites", "CreateMovie", "Movies", new
+                                   {
+                                       id = Model.Id,
+                                       Title = Model.Title,
+                                       ReleaseYear = Model.ReleaseYear,
+                                       adult = Model.Adult,
+                                       description = Model.Description,
+                                       PosterPath = Model.PosterPath,
+                                       BackDropPath = Model.BackDropPath,
+                                       Rating = Model.Rating,
+                                       VideoLink = Model.VideoLink,
+                                       GenreIds = Model.GenreIds,
+                                       ActorsIds = Model.ActorsIds,
+                                       Director = Model.Director,
+                                       GenreNames = Model.GenreNames,
+                                       MovieListId = (int)listId
+                                   })
+                            </div>
+                                }
                             </div>
                         </div>
                     </section>
@@ -102,10 +151,7 @@
             </div>
 
         </div>
-            
 
-        
-        
     </div>
 
 

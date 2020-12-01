@@ -1,22 +1,18 @@
 ﻿@model CSD412webProject.Models.Movie
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>CreateMovie</h1>
 
-<h4>Movie</h4>
+<h4>@Model.Title</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Adult" /> @Html.DisplayNameFor(model => model.Adult)
-                </label>
-            </div>
             <div class="form-group">
                 <label asp-for="MovieListId" class="control-label"></label>
                 <input asp-for="MovieListId" class="form-control" />
@@ -32,7 +28,11 @@
                 <input asp-for="ReleaseYear" class="form-control" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
-
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Adult" /> @Html.DisplayNameFor(model => model.Adult)
+                </label>
+            </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />

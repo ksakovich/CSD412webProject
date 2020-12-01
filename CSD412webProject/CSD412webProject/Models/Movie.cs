@@ -10,7 +10,12 @@ namespace CSD412webProject.Models
     public class Movie
     {
         [Key] public int Id { get; set; }
-        public string Title { get; set;  }
+
+        [ForeignKey("MovieList")]
+        public int MovieListId { get; set; }
+        public MovieList MovieList { get; set; }
+
+        public string Title { get; set; }
 
         [Display(Name = "Year")]
         public int ReleaseYear { get; set; }
@@ -51,6 +56,7 @@ namespace CSD412webProject.Models
 
         public Movie(
             int id,
+            int movieListId,
             string title,
             int year,
             bool adult,
@@ -67,6 +73,7 @@ namespace CSD412webProject.Models
                 throw new Exception("ERROR: Illegal ID");
             }
             this.Id = id;
+            this.MovieListId = movieListId;
             this.Title = title;
             if(year < -1 || year > DateTime.Now.AddYears(5).Year)
             {

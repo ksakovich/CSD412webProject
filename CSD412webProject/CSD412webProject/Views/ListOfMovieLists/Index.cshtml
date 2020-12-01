@@ -29,8 +29,8 @@
                         @movieList.MovieListName
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@Model.Id">Details</a>
+                        <a asp-action="Edit" asp-controller="MovieLists" asp-route-id="@movieList.MovieListId">Edit</a> |
+                        <a asp-action="Details"  asp-controller="MovieLists" asp-route-id="@movieList.MovieListId">Details</a>
                     </td>
                 </tr>
             }

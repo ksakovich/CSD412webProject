@@ -13,6 +13,8 @@ namespace CSD412webProject.Models
         public string MovieListName { get; set; }
         public string MovieListLink { get; set; }
         public bool IsPublic { get; set; }
+
+        [InverseProperty("MovieList")]
         public List<Movie> Movies { get; set; }
         [ForeignKey("ListOfMovieLists")]
         public int ListOfMovieListsId { get; set; }
