@@ -99,7 +99,7 @@
                                 @{ 
                                     var currentUser = await UserManager.GetUserAsync(User);
                                     object listId;
-                                    ViewData.TryGetValue("ListId", out listId);
+                                    ViewData.TryGetValue("WatchLaterId", out listId);
                                 }
                                 @Html.ActionLink("Watch It Later", "CreateMovie", "Movies", new
                            {
@@ -119,10 +119,30 @@
                                MovieListId = (int)listId
                            })
                             </div>
-                                    <div class="col md-4 mb-4 text-center movie-cell">
-                                        <i class="far fa-star fa-2x mb-2"></i>
-                                        <h6 class=" text-danger">Add It To Favorites</h6>
-                                    </div>
+                            <div class="col md-4 mb-4 text-center movie-cell">
+                                <i class="far fa-star fa-2x mb-2"></i>
+                                @*<h6 class=" text-danger">Add It To Favorites</h6>*@
+                                @{ 
+                                    ViewData.TryGetValue("FavoritesId", out listId);
+                                }
+                                @Html.ActionLink("Add It To Favorites", "CreateMovie", "Movies", new
+                                   {
+                                       id = Model.Id,
+                                       Title = Model.Title,
+                                       ReleaseYear = Model.ReleaseYear,
+                                       adult = Model.Adult,
+                                       description = Model.Description,
+                                       PosterPath = Model.PosterPath,
+                                       BackDropPath = Model.BackDropPath,
+                                       Rating = Model.Rating,
+                                       VideoLink = Model.VideoLink,
+                                       GenreIds = Model.GenreIds,
+                                       ActorsIds = Model.ActorsIds,
+                                       Director = Model.Director,
+                                       GenreNames = Model.GenreNames,
+                                       MovieListId = (int)listId
+                                   })
+                            </div>
                                 }
                             </div>
                         </div>

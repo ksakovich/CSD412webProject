@@ -175,7 +175,9 @@ namespace CSD412webProject.Controllers
             var listOfMovieLists = await applicationDbContext.FirstAsync();
             var result = View(movie);
             var watchLater = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "WatchLater").First();
-            result.ViewData.Add("ListId", watchLater.MovieListId);
+            result.ViewData.Add("WatchLaterId", watchLater.MovieListId);
+            var favorites = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "Favorites").First();
+            result.ViewData.Add("FavoritesId", favorites.MovieListId);
             return result;
         }
 
