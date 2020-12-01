@@ -36,7 +36,7 @@ namespace CSD412webProject.Controllers
                 return NotFound();
             }
 
-            var movieList = await _context.MovieList
+            var movieList = await _context.MovieList.Include(l => l.Movies)
                 .FirstOrDefaultAsync(m => m.MovieListId == id);
             if (movieList == null)
             {
@@ -50,15 +50,51 @@ namespace CSD412webProject.Controllers
         [Authorize]
         public IActionResult Create([FromRoute] int id)
         {
-           //_context.ListOfMovieLists.
-
-
-
             MovieList model = new MovieList()
             {
                 ListOfMovieListsId = id
             };
             return View(model);
+        }
+
+        [Authorize]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMovie( Movie movie, int listId)
+        {
+            var movieList = await _context.MovieList.FindAsync(listId);
+            if (movieList == null)
+            {
+                return NotFound();
+            }
+            if (listId != movieList.MovieListId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                movieList.AddMovie(movie);
+                try
+                {
+                    _context.Update(movieList);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieListExists(movieList.MovieListId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movieList);
+
+            //return View(movie);
         }
 
         // POST: MovieLists/Create

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CSD412webProject.Data;
 using CSD412webProject.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.Identity;
 
 namespace CSD412webProject.Controllers
 {
@@ -50,18 +52,25 @@ namespace CSD412webProject.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult CreateMovie( Movie movie)
+        {
+            return View(movie);
+        }
+
         // POST: Movies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieListId,Adult,Description,PosterPath,BackDropPath,Rating,VideoLink,Director")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,MovieListId,Title,ReleaseYear,Adult,Description,PosterPath,BackDropPath,Rating,VideoLink,Director")] Movie movie)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "MovieLists", new { id = movie.MovieListId });
             }
             return View(movie);
         }
@@ -160,9 +169,14 @@ namespace CSD412webProject.Controllers
             return View(tempMovieList);
         }
 
-        public IActionResult MovieInfo(Movie movie)
+        public async Task<IActionResult> MovieInfo(Movie movie)
         {
-            return View(movie);
+            var applicationDbContext = _context.ListOfMovieLists.Include(l => l.User).Where(l => l.UserId == User.Identity.GetUserId()).Include(l => l.MovieLists);
+            var listOfMovieLists = await applicationDbContext.FirstAsync();
+            var result = View(movie);
+            var watchLater = listOfMovieLists.MovieLists.Where(l => l.MovieListName == "WatchLater").First();
+            result.ViewData.Add("ListId", watchLater.MovieListId);
+            return result;
         }
 
         private bool MovieExists(int id)
@@ -211,7 +225,7 @@ namespace CSD412webProject.Controllers
 
                 List<int> genres = genreIds.OfType<int>().ToList();
 
-                Movie tmpMovie = new Movie(id, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
+                Movie tmpMovie = new Movie(id, 0, title, releaseYear, adult, description, postePath, backDropPath, rating, null, genres);
                 tempMovieList.Add(tmpMovie);
             }
         }
