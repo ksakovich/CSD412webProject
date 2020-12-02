@@ -113,7 +113,7 @@ namespace CSD412webProject.Controllers
             {
                 _context.Add(movieList);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction("Index", "ListOfMovieLists");
             }
             return View(movieList);
         }
