@@ -95,7 +95,7 @@
                                 {
                             <div class="col md-4 mb-4 text-center movie-cell">
                                 <i class="far fa-bookmark fa-2x mb-2"></i>
-                                @*<h6 class=" text-danger">Watch It Later</h6>*@
+                                <h6 class=" text-danger">  </h6>
                                 @{ 
                                     var currentUser = await UserManager.GetUserAsync(User);
                                     object listId;
@@ -121,7 +121,7 @@
                             </div>
                             <div class="col md-4 mb-4 text-center movie-cell">
                                 <i class="far fa-star fa-2x mb-2"></i>
-                                @*<h6 class=" text-danger">Add It To Favorites</h6>*@
+                                <h6 class=" text-danger"> </h6>
                                 @{ 
                                     ViewData.TryGetValue("FavoritesId", out listId);
                                 }
