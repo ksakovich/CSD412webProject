@@ -4,37 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Details of list
+    </h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table text-white">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adult)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PosterPath)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BackDropPath)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VideoLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Director)
             </th>
             <th></th>
         </tr>
@@ -42,29 +25,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td class="media">
+                @{
+                    string path = "https://image.tmdb.org/t/p/w185/";
+                    path = path + item.PosterPath;
+                }
+                <p><img class="mr-3" src=@path alt=" @item.Title" /></p>
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Adult)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PosterPath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BackDropPath)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VideoLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Director)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
