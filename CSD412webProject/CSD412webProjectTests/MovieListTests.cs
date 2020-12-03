@@ -7,10 +7,10 @@ namespace CSD412webProjectTests
     public class MovieListTests
     {
         [Fact]
-        public void DefaultName()
+        public void DefaultNameINull()
         {
             MovieList movieLname = new MovieList();
-            Assert.True(movieLname.MovieListName == "Default");
+            Assert.True(movieLname.MovieListName == null);
         }
 
         [Fact]
@@ -21,10 +21,21 @@ namespace CSD412webProjectTests
         }
 
         [Fact]
-        public void CheckTypes()
+        public void CustomName()
         {
-            MovieList mLType = new MovieList();
-            Assert.IsType<String>(mLType.MovieListName);
+            MovieList ml = new MovieList(new ListOfMovieLists() , "Horror", false);
+            Assert.True(ml.MovieListName == "Horror");
+        }
+
+        [Theory]
+        [InlineData("Horror", "Horror")]
+        [InlineData("Aventure", "Aventure")]
+        [InlineData("Anime", "Anime")]
+        public void TestListOfMovieLisTheoryName(string title, string expected)
+        {
+            MovieList ml = new MovieList(new ListOfMovieLists(), title, false);
+
+            Assert.True(ml.MovieListName == expected);
         }
     }
 }

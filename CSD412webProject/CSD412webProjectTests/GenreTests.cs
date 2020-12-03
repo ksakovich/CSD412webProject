@@ -19,5 +19,16 @@ namespace CSD412webProjectTests
             Genre idGenre = new Genre();
             Assert.True(idGenre.Id == 0);
         }
+
+        [Theory]
+        [InlineData("Horror", "Horror")]
+        [InlineData("Aventure", "Aventure")]
+        [InlineData("Anime", "Anime")]
+        public void TestGenreTheoryName(string title, string expected)
+        {
+            Genre g = new Genre(1, title);
+
+            Assert.True(g.Name == expected);
+        }
     }
 }
