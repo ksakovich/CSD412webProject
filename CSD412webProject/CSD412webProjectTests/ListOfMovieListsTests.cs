@@ -23,8 +23,8 @@ namespace CSD412webProjectTests
         [Fact]
         public void Checklists()
         {
-            ListOfMovieLists moList = new ListOfMovieLists();
-            Assert.Null(moList.MovieLists);
+            ListOfMovieLists moList = new ListOfMovieLists(new User());
+            Assert.NotNull(moList.MovieLists);
         }
     }
 }
